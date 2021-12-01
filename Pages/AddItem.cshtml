@@ -1,0 +1,44 @@
+﻿@page
+@model ChristmasList.Pages.AddItemModel
+@{
+}
+<h1>New Christmas Toy</h1>
+<div class="col-md-6 col-sm-12 mx-auto mb-5">
+    <form method="post">
+        <div class="mb-3 row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+                <label class="form-label" asp-for="NewItem.Name"></label>
+            </div>
+            <div class="col">
+                <input class="form-control" asp-for="NewItem.Name" />
+                <span class="form-text" asp-validation-for="NewItem.Name"></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+                <label class="form-label" asp-for="NewItem.Price"></label>
+            </div>
+            <div class="col">
+                <input class="form-control" asp-for="NewItem.Price" />
+                <span class="form-text" asp-validation-for="NewItem.Price"></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+                <label class="form-label" asp-for="NewItem.Description"></label>
+            </div>
+            <div class="col">
+                <input class="form-control" asp-for="NewItem.Description" />
+                <span class="form-text" asp-validation-for="NewItem.Description" />
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-4 text-sm-end align-self-center">
+            </div>
+            <div class="col-8">
+                <button type="submit" class="btn btn-outline-primary">Add to Catalog</button>
+            </div>
+        </div>
+    </form>
+</div>
