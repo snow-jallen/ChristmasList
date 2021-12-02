@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,22 +19,21 @@ namespace ChristmasList.Pages
 
         public async Task OnGet()
         {
-            await loadPageData();
-        }
-
-        private async Task loadPageData()
-        {
             Items = await dbContext.Items.ToListAsync();
+
             DesiredItems = await dbContext.DesiredItems
                 .Include(di => di.Item)
                 .Where(di => di.ChildEmail == User.Identity.Name)
                 .Select(di=>di.Item).ToListAsync();
+
+            HotItems = new HotItemsModel(dbContext);
         }
 
         public List<Item> Items { get; set; }
         public List<Item> DesiredItems { get; set; }
+        public HotItemsModel HotItems { get; set; }
 
-        public async Task<IActionResult> OnGetIWantIt(int itemid)
+        public async Task<IActionResult> OnPostIWantIt(int itemid)
         {
             var desiredItem = new DesiredItem
             {
@@ -45,10 +43,10 @@ namespace ChristmasList.Pages
             await dbContext.DesiredItems.AddAsync(desiredItem);
             await dbContext.SaveChangesAsync();
 
-            return Page();
+            return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnGetDontWantIt(int itemid)
+        public async Task<IActionResult> OnPostDontWantIt(int itemid)
         {
             var desiredItem = await dbContext.DesiredItems.FirstOrDefaultAsync(di => di.ChildEmail == User.Identity.Name && di.ItemId == itemid);
             if (desiredItem == null)
@@ -57,7 +55,7 @@ namespace ChristmasList.Pages
             dbContext.DesiredItems.Remove(desiredItem);
             await dbContext.SaveChangesAsync();
 
-            return Page();
+            return RedirectToPage();
         }
     }
 }
