@@ -3,18 +3,22 @@
 @{
 }
 
-<h1>Hot Items</h1>
-<p>As Of @Model.RenderedOn</p>
-<table>
-    <thead>
-    <th>Name</th>
-    <th>Wanted By</th>
-    </thead>
-    @foreach (var hotItem in @Model.HotItems)
-    {
-        <tr>
-            <td>@hotItem.Item.Name</td>
-            <td>@hotItem.WantedBy</td>
-        </tr>
-    }
-</table>
+<div class="border">
+    <h1>Hot Items</h1>
+    <p>As Of @Model.RenderedOn</p>
+    <div class="align-content-center">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Wanted By</th>
+            </tr>
+            @foreach (var hotItem in @Model.HotItems)
+            {
+                <tr>
+                    <td>@hotItem.Item.Name</td>
+                    <td>@hotItem.WantedBy</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

@@ -4,36 +4,33 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ChristmasList.Pages
 {
-    public class HotItemsModel
+    public class HotItemsModel : PageModel
     {
-        private readonly ApplicationDbContext dbContext;
 
-        public HotItemsModel(ApplicationDbContext dbContext)
+        public static async Task<HotItemsModel> CreateHotItemsModel(ApplicationDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            var model = new HotItemsModel();
+            var desiredItems = await dbContext.DesiredItems
+                .Include(di => di.Item)
+                .ToListAsync();
 
-            init();
-        }
-
-        private async Task init()
-        {
-            var desiredItems = await dbContext.DesiredItems.Include(di => di.Item).ToListAsync();
-
-            HotItems = from di in desiredItems
-                       group di by di.Item.Id into grp
-                       orderby grp.Count() descending
-                       select new HotItem
-                       {
-                           Item = grp.First().Item,
-                           WantedBy = grp.Count()
-                       };
+            model.HotItems = (from di in desiredItems
+                              group di by di.Item.Id into grp
+                              orderby grp.Count() descending
+                              select new HotItem
+                              {
+                                  Item = grp.First().Item,
+                                  WantedBy = grp.Count()
+                              }).Take(10);
+            return model;
         }
 
         public DateTime RenderedOn { get; set; } = DateTime.Now;
-        public IEnumerable<HotItem> HotItems { get; set; }
+        public IEnumerable<HotItem> HotItems { get; private set; }
     }
 
     public class HotItem

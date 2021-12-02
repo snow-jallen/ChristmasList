@@ -26,7 +26,7 @@ namespace ChristmasList.Pages
                 .Where(di => di.ChildEmail == User.Identity.Name)
                 .Select(di=>di.Item).ToListAsync();
 
-            HotItems = new HotItemsModel(dbContext);
+            HotItems = await HotItemsModel.CreateHotItemsModel(dbContext);
         }
 
         public List<Item> Items { get; set; }

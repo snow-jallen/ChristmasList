@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChristmasList.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,15 +12,19 @@ namespace ChristmasList.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly ApplicationDbContext dbContext;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
+            this.dbContext = dbContext;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-
+            HotItems = await HotItemsModel.CreateHotItemsModel(dbContext);
         }
+
+        public HotItemsModel HotItems { get; set; }
     }
 }
