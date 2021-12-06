@@ -26,15 +26,16 @@ namespace ChristmasList.Pages
         {
             HotItems = await HotItemsModel.CreateHotItemsModel(dbContext);
             Suggestions = await dbContext.Suggestions
+                .Include(s => s.ChildSuggestions)
                 .OrderBy(s => s.AddedOn)
                 .ToListAsync();
         }
 
         public HotItemsModel HotItems { get; set; }
         public List<Suggestion> Suggestions { get; set; }
-        public AddSuggestionPartialModel AddSuggestionModel { get; set; }
+        public AddSuggestionPartialModel AddSuggestionModel { get; set; } = new();
 
-        public async Task<IActionResult> OnPostAsync(Suggestion NewSuggestion)
+        public async Task<IActionResult> OnPostAsync(Suggestion NewSuggestion, int ParentSuggestionId)
         {
             if(!ModelState.IsValid)
             {
@@ -42,6 +43,7 @@ namespace ChristmasList.Pages
             }
 
             NewSuggestion.AddedOn = DateTime.Now;
+            NewSuggestion.ParentSuggestionId = ParentSuggestionId;
             dbContext.Suggestions.Add(NewSuggestion);
             await dbContext.SaveChangesAsync();
 

@@ -12,6 +12,7 @@
                 <input class="form-control" asp-for="NewSuggestion.SuggestionText" />
                 <span class="form-text" asp-validation-for="NewSuggestion.SuggestionText"></span>
             </div>
+            <input type="hidden" name="ParentSuggestionId" value="@Model.ParentSuggestionId"/>
         </div>
 
         <div class="row">

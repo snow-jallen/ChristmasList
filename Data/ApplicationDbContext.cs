@@ -43,5 +43,6 @@ namespace ChristmasList.Data
         public int? ParentSuggestionId { get; set; }
         public Suggestion ParentSuggestion { get; set; }
         public DateTime AddedOn { get; set; }
+        public List<Suggestion> ChildSuggestions { get; set; }
     }
 }
