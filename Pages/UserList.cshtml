@@ -1,0 +1,27 @@
+﻿@page "/UserList/{userEmail}"
+@model ChristmasList.Pages.UserListModel
+@{
+}
+
+@if (Model.DesiredItems.Any())
+{
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Price</th>
+            <th>Description</th>
+        </tr>
+        @foreach (var item in Model.DesiredItems)
+        {
+            <tr>
+                <td>@item.Item.Name</td>
+                <td>@item.Item.Price.ToString("c")</td>
+                <td>@item.Item.Description</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No one with that email has a list.</p>
+}
