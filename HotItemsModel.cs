@@ -11,12 +11,10 @@ namespace ChristmasList.Pages
     public class HotItemsModel : PageModel
     {
 
-        public static async Task<HotItemsModel> CreateHotItemsModel(ApplicationDbContext dbContext)
+        public static async Task<HotItemsModel> CreateHotItemsModel(CatalogService catalogService)
         {
             var model = new HotItemsModel();
-            var desiredItems = await dbContext.DesiredItems
-                .Include(di => di.Item)
-                .ToListAsync();
+            var desiredItems = await catalogService.GetAllDesiredItemsAsync();
 
             model.HotItems = (from di in desiredItems
                               group di by di.Item.Id into grp

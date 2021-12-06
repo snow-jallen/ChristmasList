@@ -1,4 +1,5 @@
 using ChristmasList.Data;
+using ChristmasList.Pages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +41,8 @@ namespace ChristmasList
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
+            services.AddScoped<CatalogService>();
+            services.AddScoped<ICatalogDataService, DefaultCatalogDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
