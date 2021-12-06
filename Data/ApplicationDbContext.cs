@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace ChristmasList.Data
@@ -15,6 +16,7 @@ namespace ChristmasList.Data
 
         public DbSet<Item> Items { get; set; }
         public DbSet<DesiredItem> DesiredItems { get; set; }
+        public DbSet<Suggestion> Suggestions { get; set; }
     }
 
     public class Item
@@ -31,5 +33,15 @@ namespace ChristmasList.Data
         public int ItemId { get; set; }
         public Item Item { get; set; }
         public string ChildEmail { get; set; }
+    }
+
+    public class Suggestion
+    {
+        public int Id { get; set; }
+        [DisplayName("Suggestion")]
+        public string SuggestionText { get; set; }
+        public int? ParentSuggestionId { get; set; }
+        public Suggestion ParentSuggestion { get; set; }
+        public DateTime AddedOn { get; set; }
     }
 }

@@ -9,3 +9,14 @@
     <a asp-page="Catalog">Catalog</a>
 </div>
 <partial name="HotItems" model="@Model.HotItems" />"
+
+<h1>Suggestions</h1>
+
+@foreach (var suggestion in Model.Suggestions)
+{
+    <div class="row">
+        <div class="text-body"><strong>@suggestion.SuggestionText</strong> Added on @suggestion.AddedOn.ToShortDateString()</div>
+    </div>
+}
+
+<partial name="AddSuggestionPartial" model="Model.AddSuggestionModel" />

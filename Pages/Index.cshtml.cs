@@ -1,6 +1,8 @@
 ﻿using ChristmasList.Data;
+using ChristmasList.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,8 +25,27 @@ namespace ChristmasList.Pages
         public async Task OnGet()
         {
             HotItems = await HotItemsModel.CreateHotItemsModel(dbContext);
+            Suggestions = await dbContext.Suggestions
+                .OrderBy(s => s.AddedOn)
+                .ToListAsync();
         }
 
         public HotItemsModel HotItems { get; set; }
+        public List<Suggestion> Suggestions { get; set; }
+        public AddSuggestionPartialModel AddSuggestionModel { get; set; }
+
+        public async Task<IActionResult> OnPostAsync(Suggestion NewSuggestion)
+        {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            NewSuggestion.AddedOn = DateTime.Now;
+            dbContext.Suggestions.Add(NewSuggestion);
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
     }
 }
