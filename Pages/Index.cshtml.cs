@@ -12,17 +12,17 @@ namespace ChristmasList.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly ApplicationDbContext dbContext;
+        private readonly CatalogService catalogService;
 
-        public IndexModel(ILogger<IndexModel> logger, ApplicationDbContext dbContext)
+        public IndexModel(ILogger<IndexModel> logger, CatalogService catalogService)
         {
             _logger = logger;
-            this.dbContext = dbContext;
+            this.catalogService = catalogService;
         }
 
         public async Task OnGet()
         {
-            HotItems = await HotItemsModel.CreateHotItemsModel(dbContext);
+            HotItems = await HotItemsModel.CreateHotItemsModel(catalogService);
         }
 
         public HotItemsModel HotItems { get; set; }
