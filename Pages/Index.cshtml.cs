@@ -15,11 +15,13 @@ namespace ChristmasList.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly CatalogService catalogService;
+        private readonly ApplicationDbContext dbContext;
 
-        public IndexModel(ILogger<IndexModel> logger, CatalogService catalogService)
+        public IndexModel(ILogger<IndexModel> logger, CatalogService catalogService, ApplicationDbContext dbContext)
         {
             _logger = logger;
             this.catalogService = catalogService;
+            this.dbContext = dbContext;
         }
 
         public async Task OnGet()
@@ -27,6 +29,11 @@ namespace ChristmasList.Pages
             HotItems = await HotItemsModel.CreateHotItemsModel(catalogService);
             Suggestions = await dbContext.Suggestions
                 .Include(s => s.ChildSuggestions)
+                    .ThenInclude(c => c.ChildSuggestions)
+                        .ThenInclude(c => c.ChildSuggestions)
+                            .ThenInclude(c => c.ChildSuggestions)
+                                .ThenInclude(c => c.ChildSuggestions)
+                                    .ThenInclude(c => c.ChildSuggestions)
                 .OrderBy(s => s.AddedOn)
                 .ToListAsync();
         }
@@ -43,11 +50,21 @@ namespace ChristmasList.Pages
             }
 
             NewSuggestion.AddedOn = DateTime.Now;
-            NewSuggestion.ParentSuggestionId = ParentSuggestionId;
+            if (ParentSuggestionId > 0)
+            {
+                NewSuggestion.ParentSuggestionId = ParentSuggestionId;
+            }
             dbContext.Suggestions.Add(NewSuggestion);
             await dbContext.SaveChangesAsync();
 
             return RedirectToPage();
+        }
+
+        public DisplaySuggestionPartialModel CreateDisplaySuggestionModel(Suggestion suggestion)
+        {
+            var model = new DisplaySuggestionPartialModel();
+            model.Suggestion = suggestion;
+            return model;
         }
     }
 }

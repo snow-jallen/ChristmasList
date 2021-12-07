@@ -1,0 +1,26 @@
+﻿@model Suggestion
+@{
+}
+
+
+<div class="container border p-1 mx-5">
+    <div class="row">
+        <div class="col-auto">
+            <strong>@Model.SuggestionText</strong>
+        </div>
+        <div class="col-auto">
+            <span>Added on @Model.AddedOn.ToShortDateString()</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @foreach (var child in Model.ChildSuggestions)
+            {
+                <partial name="DisplaySuggestionPartial" model="child" class="ml-3" />
+            }
+        </div>
+    @*</div>
+    <div class="row">*@
+        <partial name="AddSuggestionPartial" model="new AddSuggestionPartialModel(Model.Id)" />
+    </div>
+</div>

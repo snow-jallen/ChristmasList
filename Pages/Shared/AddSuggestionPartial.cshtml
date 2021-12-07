@@ -1,26 +1,11 @@
 ﻿@model ChristmasList.Pages.Shared.AddSuggestionPartialModel
-@{
-}
 
-<div class="col-md-6 col-sm-12 mx-auto mb-5">
-    <form method="post" asp-page="Index">
-        <div class="mb-3 row">
-            <div class="col-sm-4 text-sm-end align-self-center">
-                <label class="form-label" asp-for="NewSuggestion.SuggestionText"></label>
-            </div>
-            <div class="col">
-                <input class="form-control" asp-for="NewSuggestion.SuggestionText" />
-                <span class="form-text" asp-validation-for="NewSuggestion.SuggestionText"></span>
-            </div>
-            <input type="hidden" name="ParentSuggestionId" value="@Model.ParentSuggestionId"/>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-4 text-sm-end align-self-center">
-            </div>
-            <div class="col-8">
-                <button type="submit" class="btn btn-outline-primary">Add</button>
-            </div>
-        </div>
-    </form>
-</div>
+<form method="post" asp-page="Index">
+    <div class="col-2">
+        <input class="form-control" placeholder="Suggestion" asp-for="NewSuggestion.SuggestionText" />
+        <input type="hidden" name="ParentSuggestionId" value="@Model.ParentSuggestionId" />
+    </div>
+    <div class="col-1">
+        <button type="submit" class="btn btn-outline-primary">Add</button>
+    </div>
+</form>

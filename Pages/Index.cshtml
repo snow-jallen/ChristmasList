@@ -15,17 +15,8 @@
 
 @foreach (var suggestion in Model.Suggestions.Where(s => s.ParentSuggestionId == null))
 {
-    <div class="row">
-        <div class="text-body"><strong>@suggestion.SuggestionText</strong> Added on @suggestion.AddedOn.ToShortDateString()</div>
-        @foreach (var child in suggestion.ChildSuggestions)
-        {
-            <div class="text-body">Child: <strong>@child.SuggestionText</strong> Added on @child.AddedOn.ToShortDateString()</div>
-        }
-
-        <h5>Add a child suggestion</h5>
-        <partial name="AddSuggestionPartial" model="new AddSuggestionPartialModel(suggestion.Id)" />
-    </div>
+    <partial name="DisplaySuggestionPartial" model="suggestion" />
 }
 
-<h3>Add a new top-level suggestions</h3>
+<h3>Add a new top-level suggestion</h3>
 <partial name="AddSuggestionPartial" model="Model.AddSuggestionModel" />
