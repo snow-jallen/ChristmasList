@@ -9,9 +9,9 @@
     <h1 class="display-4">Christmas List</h1>
     <a class="btn btn-primary m-5" asp-page="Catalog">Browse our Catalog</a>
 </div>
-<partial name="HotItems" model="@Model.HotItems" />"
+<partial name="HotItems" model="@Model.HotItems" />
 
-<h1>Suggestions</h1>
+<h1 class="mt-2">Suggestions</h1>
 
 @foreach (var suggestion in Model.Suggestions.Where(s => s.ParentSuggestionId == null))
 {
