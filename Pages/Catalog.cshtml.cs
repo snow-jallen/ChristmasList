@@ -21,7 +21,7 @@ namespace ChristmasList.Pages
 
             DesiredItems = await catalogService.GetChildDesiredItemsAsync(User.Identity.Name);
 
-            HotItems = await HotItemsModel.CreateHotItemsModel(catalogService);
+            HotItems = await HotItemsModel.CreateHotItemsModelAsync(catalogService);
         }
 
         public IEnumerable<Item> Items { get; set; }

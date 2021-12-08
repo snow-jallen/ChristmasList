@@ -11,7 +11,7 @@ namespace ChristmasList.Pages
     public class HotItemsModel : PageModel
     {
 
-        public static async Task<HotItemsModel> CreateHotItemsModel(CatalogService catalogService)
+        public static async Task<HotItemsModel> CreateHotItemsModelAsync(CatalogService catalogService)
         {
             var model = new HotItemsModel();
             var desiredItems = await catalogService.GetAllDesiredItemsAsync();

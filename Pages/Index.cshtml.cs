@@ -26,7 +26,7 @@ namespace ChristmasList.Pages
 
         public async Task OnGet()
         {
-            HotItems = await HotItemsModel.CreateHotItemsModel(catalogService);
+            HotItems = await HotItemsModel.CreateHotItemsModelAsync(catalogService);
             Suggestions = await dbContext.Suggestions
                 .Include(s => s.ChildSuggestions)
                 .OrderBy(s => s.AddedOn)
