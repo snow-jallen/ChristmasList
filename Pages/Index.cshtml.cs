@@ -29,11 +29,6 @@ namespace ChristmasList.Pages
             HotItems = await HotItemsModel.CreateHotItemsModel(catalogService);
             Suggestions = await dbContext.Suggestions
                 .Include(s => s.ChildSuggestions)
-                    .ThenInclude(c => c.ChildSuggestions)
-                        .ThenInclude(c => c.ChildSuggestions)
-                            .ThenInclude(c => c.ChildSuggestions)
-                                .ThenInclude(c => c.ChildSuggestions)
-                                    .ThenInclude(c => c.ChildSuggestions)
                 .OrderBy(s => s.AddedOn)
                 .ToListAsync();
         }
