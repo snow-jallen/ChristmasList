@@ -1,11 +1,13 @@
 ﻿@model ChristmasList.Pages.Shared.AddSuggestionPartialModel
 
 <form method="post" asp-page="Index">
-    <div class="col-2">
-        <input class="form-control mx-3 mt-1" placeholder="add your suggestion" asp-for="NewSuggestion.SuggestionText" />
-        <input type="hidden" name="ParentSuggestionId" value="@Model.ParentSuggestionId" />
-    </div>
-    <div class="col-1">
-        <button type="submit" class="btn btn-outline-primary mx-3 mt-1">Add</button>
+    <div class="row">
+        <div class="col-auto">
+            <input class="form-control mx-3 mt-1" placeholder="add your suggestion" asp-for="NewSuggestion.SuggestionText" />
+            <input type="hidden" name="ParentSuggestionId" value="@Model.ParentSuggestionId" />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary mx-3 mt-1">Add</button>
+        </div>
     </div>
 </form>

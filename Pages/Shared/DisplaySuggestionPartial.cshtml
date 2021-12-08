@@ -1,6 +1,6 @@
 ﻿@model Suggestion
 
-<div class="container border p-1 mx-5">
+<div class="border p-1 pe-0 ms-5">
     <div class="row">
         <div class="col-auto">
             <strong>@Model.SuggestionText</strong>
@@ -16,8 +16,6 @@
                 <partial name="DisplaySuggestionPartial" model="child" class="ml-3" />
             }
         </div>
-    @*</div>
-    <div class="row">*@
         <partial name="AddSuggestionPartial" model="new AddSuggestionPartialModel(Model.Id)" />
     </div>
 </div>
